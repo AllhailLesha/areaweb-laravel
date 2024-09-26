@@ -9,6 +9,8 @@ class ArticlesController extends Controller
 {
     public function create(Request $request)
     {
-        dd($request->only(['title', 'text']));
+        $file = $request->file('articleImg')->store('images/articles');
+        $path = config('app.url')."storage/$file";
+        dd($path);
     }
 }
