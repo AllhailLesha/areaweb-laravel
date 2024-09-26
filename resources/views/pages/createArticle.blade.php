@@ -6,15 +6,30 @@
         @csrf
         <div class="mb-3">
             <label for="articleTitle" class="form-label">Article Title</label>
-            <input type="text" class="form-control" id="articleTitle" name="title" value="Novostь">
+            <input type="text" class="form-control @error('title') is-invalid @enderror" id="articleTitle" name="title" value="{{ @old('title') }}">
+            @error('title')
+            <div id="validationServer03Feedback" class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="articleText" class="form-label">Article Text</label>
-            <input type="text" class="form-control" id="articleText" name="text" value="Text novosty">
+            <input type="text" class="form-control @error('text') is-invalid @enderror" id="articleText" name="text" value="{{ @old('text') }}">
+            @error('text')
+            <div id="validationServer03Feedback" class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <div class="mb-3">
             <label for="articleImg" class="form-label">Image for article</label>
-            <input class="form-control" type="file" id="articleImg" name="articleImg">
+            <input class="form-control @error('articleImg') is-invalid @enderror" type="file" id="articleImg" name="articleImg">
+            @error('articleImg')
+            <div id="validationServer03Feedback" class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
