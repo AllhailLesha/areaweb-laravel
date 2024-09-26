@@ -37,6 +37,21 @@ class PagesController extends Controller
         ]);
     }
 
+    public function createArticleForm()
+    {
+        return view('pages.createArticle');
+    }
+
+    public function getUser()
+    {
+        return view('pages.userForm');
+    }
+
+    public function showUser()
+    {
+        return view('pages.userInfo');
+    }
+
     public function about()
     {
         return view('pages.about');
