@@ -5,20 +5,21 @@ namespace App\Http\Controllers\Base;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Requests\User\InfoRequest;
 
 class UsersController extends Controller
 {
-    public function getUser(Request $request)
+    public function getUser(InfoRequest $request)
     {
-        $request->validate([
-            'userName' => ['required', 'string', 'max:100'],
-            'userAge' => ['required', 'integer', 'max:100'],
-            'userCountry' => ['required', 'string', 'max:30'],
-            'userHobby' => ['required', 'string', 'max:150'],
-            'userAbout' => ['nullable', 'string', 'max:300'],
-            'userAvatar' => ['required', 'image', 'mimes:png,jpeg,jpg', 'max:2048'],
-            'userResume' => ['required', 'file', 'mimes:pdf', 'max:1024'],
-        ]);
+        $request->rules();
+
+        if (isset($request->file()['userAvatar'])) {
+           $request->file('userAvatar')->store('images/users/avatars');
+        }
+
+        if (isset($request->file()['userResume'])) {
+            $request->file('userResume')->store('images/users/resume');
+        }
 
         $user = [
             'name' => $request->input('userName'),

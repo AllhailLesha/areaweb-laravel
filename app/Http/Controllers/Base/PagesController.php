@@ -37,9 +37,9 @@ class PagesController extends Controller
         ]);
     }
 
-    public function createArticleForm()
+    public function storeArticleForm()
     {
-        return view('pages.createArticle');
+        return view('pages.storeArticle');
     }
 
     public function getUser()

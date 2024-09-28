@@ -2,7 +2,7 @@
 
 @section('body')
     <h1>Create article</h1>
-    <form action="{{ route('articles.create') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('articles.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="mb-3">
             <label for="articleTitle" class="form-label">Article Title</label>

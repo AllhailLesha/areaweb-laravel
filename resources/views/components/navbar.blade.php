@@ -13,7 +13,7 @@
                     <a class="nav-link" href="{{ route('articles') }}">Articles</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('article.page.create') }}">Add Articles</a>
+                    <a class="nav-link" href="{{ route('article.page.store') }}">Add Articles</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('user.page.get') }}">create User</a>
