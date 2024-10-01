@@ -40,5 +40,15 @@ services:
     volumes:
       - ./src:/var/www/src
     entrypoint: ["php", "/var/www/src/artisan"]
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin
+    ports:
+      - 1500:80
+    environment:
+      - PMA_HOST=mysql
+    depends_on:
+      - mysql
+
 volumes:
   db_data:

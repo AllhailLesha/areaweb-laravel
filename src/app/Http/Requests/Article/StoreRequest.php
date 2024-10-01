@@ -15,32 +15,10 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => [
-                'required',
-                'string',
-                'min:2',
-                'max:10'
-            ],
-            'text' => [
-                'required',
-                'string',
-                'min:1',
-                'max:100'
-            ],
-            'articleImg' => [
-                'required',
-                'image',
-                'mimes:png,svg',
-                'max:1000'
-            ]
+            'title' => ['required', 'string', 'min:2', 'max:10'],
+            'articleText' => ['required', 'string', 'max:100'],
+            'articleImg' => ['required', 'image', 'mimes:png,jpeg,jpg', 'max:2048'],
         ];
     }
 
-    public function all($keys = null): array
-    {
-        return [
-            'title' => $this->input('title'),
-            'test' => $this->input('text'),
-        ];
-    }
 }

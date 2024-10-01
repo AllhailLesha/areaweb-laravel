@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Base;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -27,7 +28,8 @@ class PagesController extends Controller
 
     public function home()
     {
-        return view('pages.home');
+        dd(Article::find(1));
+        /*return view('pages.home');*/
     }
 
     public function articles()

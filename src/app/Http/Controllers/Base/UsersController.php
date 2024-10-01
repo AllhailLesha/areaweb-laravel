@@ -11,7 +11,6 @@ class UsersController extends Controller
 {
     public function getUser(InfoRequest $request)
     {
-        $request->rules();
 
         if (isset($request->file()['userAvatar'])) {
            $request->file('userAvatar')->store('images/users/avatars');

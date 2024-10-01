@@ -11,10 +11,9 @@ class ArticlesController extends Controller
 {
     public function store(StoreRequest $request)
     {
+        $request->rules();
         if (!is_null($request->file())) {
-            $file = $request->file('articleImg')->store('images/articles');
-            $path = config('app.url')."storage/$file";
-            dd($path);
+            $request->file('articleImg')->store('images/articles');
         }
     }
 }
