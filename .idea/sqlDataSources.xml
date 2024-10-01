@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DdlMappings">
+    <mapping uuid="557428c0-7c5f-4d9a-b17d-8474e3c380d5" name="areaweb-laravel@localhost Mapping">
+      <data-sources db="bbe788ed-82a6-4618-a848-7eae5d01302d" />
+      <scope>
+        <node kind="database" negative="1" />
+      </scope>
+    </mapping>
+  </component>
+</project>
