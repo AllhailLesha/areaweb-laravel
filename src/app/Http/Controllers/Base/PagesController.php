@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Base;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\Book;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -28,14 +29,31 @@ class PagesController extends Controller
 
     public function home()
     {
-        dd(Article::find(1));
-        /*return view('pages.home');*/
+        return view('pages.home');
     }
 
     public function articles()
     {
+        $articles = Article::where('is_public', true)->orderBy('created_at');
         return view('pages.articles', [
-            'articles' => $this->articles
+            'articles' => $articles->get()
+        ]);
+    }
+
+    public function books()
+    {
+        $books = Book::where('id', '>=', 1)->orderBy('created_at');
+        return view('pages.books', [
+            'books' => $books->get()
+        ]);
+    }
+
+    public function showBook(Book $book)
+    {
+        return view('pages.book', [
+            'title' => $book->title,
+            'description' => $book->description,
+            'createdAt' => $book->created_at ?? 'До рождения Христа'
         ]);
     }
 
@@ -59,21 +77,11 @@ class PagesController extends Controller
         return view('pages.about');
     }
 
-    public  function showArticle($article)
+    public  function showArticle(Article $article)
     {
-        $article = array_filter($this->articles, function ($item) use ($article){
-            return $item['id'] == $article;
-        });
-
-        $article = array_shift($article);
-
-        if (is_null($article)) {
-            return abort(404);
-        }
-
         return view('pages.article', [
-            'title' => $article['title'] ?? 'Анонимная статья',
-            'text' => $article['text']
+            'title' => $article->title ?? 'Анонимная статья',
+            'text' => $article->body
         ]);
     }
 }

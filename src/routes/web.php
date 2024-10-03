@@ -9,6 +9,8 @@ Route::controller(PagesController::class)->group(function () {
     Route::get('/', 'home')->name('home');
     Route::get('/about', 'about')->name('about');
     Route::get("/articles",'articles')->name('articles');
+    Route::get('/books', 'books')->name('books');
+    Route::get('/books/{book}', 'showBook')->name('showBook');
     Route::get('/articles/store', 'storeArticleForm')->name('article.page.store');
     Route::get('/user/form', 'getUser')->name('user.page.get');
     Route::get('/user/info', 'showUser')->name('user.page.show');
