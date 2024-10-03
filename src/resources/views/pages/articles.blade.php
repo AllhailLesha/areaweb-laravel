@@ -6,8 +6,9 @@
             @include('components.article', [
                 'id' => $article->id,
                 'title' => $article->title ?? 'Анониманя статья',
-                'text' => $article->body,
-                'createdAt' => $article->created_at
+                'body' => $article->body,
+                'createdAt' => $article->created_at,
+                'previewImage' => $article->preview_image
             ])
         @endforeach
     </div>

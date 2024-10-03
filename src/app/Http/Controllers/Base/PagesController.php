@@ -57,6 +57,11 @@ class PagesController extends Controller
         ]);
     }
 
+    public  function addBook()
+    {
+        return view('pages.addBook');
+    }
+
     public function storeArticleForm()
     {
         return view('pages.storeArticle');
@@ -81,7 +86,7 @@ class PagesController extends Controller
     {
         return view('pages.article', [
             'title' => $article->title ?? 'Анонимная статья',
-            'text' => $article->body
+            'body' => $article->body
         ]);
     }
 }
