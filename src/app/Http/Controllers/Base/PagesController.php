@@ -51,9 +51,14 @@ class PagesController extends Controller
     public function showBook(Book $book)
     {
         return view('pages.book', [
-            'title' => $book->title,
-            'description' => $book->description,
-            'createdAt' => $book->created_at ?? 'До рождения Христа'
+            'book' => $book
+        ]);
+    }
+
+    public function updateBook(Book $book)
+    {
+        return view('pages.editBook', [
+            'book' => $book
         ]);
     }
 
@@ -85,8 +90,14 @@ class PagesController extends Controller
     public  function showArticle(Article $article)
     {
         return view('pages.article', [
-            'title' => $article->title ?? 'Анонимная статья',
-            'body' => $article->body
+            'article' => $article,
+        ]);
+    }
+
+    public  function updateArticle(Article $article)
+    {
+        return view('pages.editArticle', [
+            'article' => $article,
         ]);
     }
 }
