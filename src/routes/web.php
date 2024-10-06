@@ -24,7 +24,7 @@ Route::controller(PagesController::class)->group(function () {
 Route::controller(ArticlesController::class)->group(function () {
     Route::post('/articles/store', 'store')->name('articles.store');
     Route::post('/articles/{article}/update', 'update')->name('articles.update');
-
+    Route::post('/articles/{article}/delete', 'delete')->name('articles.delete');
 });
 
 Route::controller(UsersController::class)->group(function (){

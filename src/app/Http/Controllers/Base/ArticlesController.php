@@ -40,7 +40,13 @@ class ArticlesController extends Controller
         ]);
         return redirect()->route('article', [
             'article'=> $article->id
-        ]);    }
+        ]);
+    }
+
+    public function delete(Article $article) {
+        $article->forceDelete();
+        return redirect()->route('articles');
+    }
 
     private function getFilePath(Request $request, ?string $default = null): ?string
     {

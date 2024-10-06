@@ -9,23 +9,6 @@ use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    private array $articles = [
-        [
-            'id' => '1',
-            'title' => 'articles title',
-            'text' => 'text'
-        ],
-        [
-            'id' => '2',
-            'title' => 'articles title 2',
-            'text' => 'articles text 2'
-        ],
-        [
-            'id' => '3',
-            'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab expedita fuga ipsa magni minus optio, possimus, quaerat, qui quia quidem quo quod recusandae voluptatem! Est eum quod saepe sit sunt!'
-        ]
-
-    ];
 
     public function home()
     {
@@ -34,7 +17,7 @@ class PagesController extends Controller
 
     public function articles()
     {
-        $articles = Article::where('is_public', true)->orderBy('created_at');
+        $articles = Article::where('is_public', true)->orderBy('created_at')->withTrashed();
         return view('pages.articles', [
             'articles' => $articles->get()
         ]);

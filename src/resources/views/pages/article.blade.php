@@ -9,6 +9,10 @@
             <h4>{{ $article->title }}</h4>
             <p>{{ $article->body }}</p>
             <a href="{{ route('article.page.edit', ['article' => $article->id ]) }}" class="btn btn-primary">Редактировать</a>
+            <form class="mt-2" action="{{ route('articles.delete', ['article' => $article->id]) }}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-danger">Удалить</button>
+            </form>
         </div>
     </div>
 @endsection
