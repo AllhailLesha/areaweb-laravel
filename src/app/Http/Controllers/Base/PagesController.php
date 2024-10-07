@@ -33,6 +33,7 @@ class PagesController extends Controller
 
     public function showBook(Book $book)
     {
+        dd($book->toArray());
         return view('pages.book', [
             'book' => $book
         ]);
@@ -77,10 +78,4 @@ class PagesController extends Controller
         ]);
     }
 
-    public  function updateArticle(Article $article)
-    {
-        return view('pages.editArticle', [
-            'article' => $article,
-        ]);
-    }
 }

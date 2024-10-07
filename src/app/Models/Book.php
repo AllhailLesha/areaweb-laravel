@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Book extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+
 
     protected $fillable = [
         'title',
@@ -16,6 +18,20 @@ class Book extends Model
         'image_url',
         'author',
         'year',
-        'total'
+        'total',
+        'tags'
     ];
+
+    protected $casts = [
+        'tags' => 'array'
+    ];
+
+    protected function title(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => ucfirst($value),
+            set: fn (string $value) => ucfirst($value)
+        );
+    }
+
 }
