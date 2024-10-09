@@ -31,4 +31,9 @@ class Article extends Model
             get: fn (int $value) => (bool)$value,
         );
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 }

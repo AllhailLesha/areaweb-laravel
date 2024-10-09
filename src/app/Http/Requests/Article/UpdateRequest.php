@@ -16,7 +16,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'title' => ['string', 'min:2', 'max:10'],
-            'body' => ['string', 'max:100'],
+            'body' => ['string', 'max:500'],
             'articleImg' => ['image', 'mimes:png,jpeg,jpg', 'max:2048'],
         ];
     }

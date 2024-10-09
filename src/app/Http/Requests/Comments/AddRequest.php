@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\Comments;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class AddRequest extends FormRequest
 {
 
     /**
@@ -15,10 +15,7 @@ class StoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'min:2', 'max:20'],
-            'body' => ['required', 'string', 'max:500'],
-            'articleImg' => ['required', 'image', 'mimes:png,jpeg,jpg', 'max:2048'],
+            'body' => ['required', 'string', 'max:100']
         ];
     }
-
 }

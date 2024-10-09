@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Base;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
@@ -73,8 +76,20 @@ class PagesController extends Controller
 
     public  function showArticle(Article $article)
     {
+        $category = Category::find(1);
+
+        dd($category->product);
+
         return view('pages.article', [
             'article' => $article,
+            'comments' => $article->comments()
+        ]);
+    }
+
+    public function updateArticle(Article $article)
+    {
+        return view('pages.editArticle', [
+            'article' => $article
         ]);
     }
 

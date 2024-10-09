@@ -34,5 +34,8 @@ Route::controller(UsersController::class)->group(function (){
 Route::controller(BookController::class)->group(function () {
    Route::post('/add-book', 'addBook')->name('add.book');
     Route::post('/book/{book}/update', 'update')->name('book.update');
+});
 
+Route::controller(\App\Http\Controllers\Base\CommentsController::class)->group(function () {
+   Route::post('/add-comment/{article}', 'addComment')->name('comment.add');
 });
