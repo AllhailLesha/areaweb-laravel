@@ -76,10 +76,6 @@ class PagesController extends Controller
 
     public  function showArticle(Article $article)
     {
-        $category = Category::find(1);
-
-        dd($category->product);
-
         return view('pages.article', [
             'article' => $article,
             'comments' => $article->comments()

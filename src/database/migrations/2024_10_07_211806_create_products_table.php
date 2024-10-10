@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->mediumText('description')->nullable();
+            $table->foreignId('category_id')->nullable()->constrained()->nullOnDelete();
             $table->float('price')->default(0);
             $table->boolean('is_active')->default(false);
             $table->json('tags')->nullable();
