@@ -1,10 +1,13 @@
-<?php
+s<?php
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Base\PagesController;
 use App\Http\Controllers\Base\ArticlesController;
 use App\Http\Controllers\Base\UsersController;
 use App\Http\Controllers\Base\BookController;
+use App\Http\Controllers\Base\LoginController;
+use App\Http\Controllers\Base\RegisterController;
+
 
 Route::controller(PagesController::class)->group(function () {
     Route::get('/', 'home')->name('home');
@@ -39,3 +42,27 @@ Route::controller(BookController::class)->group(function () {
 Route::controller(\App\Http\Controllers\Base\CommentsController::class)->group(function () {
    Route::post('/add-comment/{article}', 'addComment')->name('comment.add');
 });
+
+Route::controller(RegisterController::class)->group(function () {
+    Route::get('/register', 'index')->name('register.form');
+    Route::post('/register', 'register')->name('register.action');
+});
+
+Route::controller(LoginController::class)->group(function () {
+    Route::get('/login', 'index')->name('login.form');
+    Route::post('/logout', 'logout')->name('logout.action');
+    Route::post('/login', 'login')->name('login.action');
+});
+
+Route::controller(\App\Http\Controllers\Auth\Manager\RegisterController::class)->group(function () {
+    Route::get('/manager-register', 'index')->name('manager-register.form');
+    Route::post('/manager-register', 'register')->name('manager-register.action');
+});
+
+Route::controller(\App\Http\Controllers\Auth\Manager\LoginController::class)->group(function () {
+    Route::get('/manager-login', 'index')->name('manager-login.form');
+    Route::post('/manager-login', 'login')->name('manager-login.action');
+    Route::post('/manager-logout', 'logout')->name('manager-logout.action');
+
+});
+
