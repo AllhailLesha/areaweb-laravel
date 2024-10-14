@@ -7,6 +7,10 @@ use App\Http\Controllers\Base\UsersController;
 use App\Http\Controllers\Base\BookController;
 use App\Http\Controllers\Base\LoginController;
 use App\Http\Controllers\Base\RegisterController;
+use App\Http\Middleware\IsUser;
+use App\Http\Middleware\IsGuest;
+use App\Http\Middleware\Artisan\IsPublic;
+use App\Http\Middleware\User\UpdateActivity;
 
 
 Route::controller(PagesController::class)->group(function () {
@@ -17,14 +21,14 @@ Route::controller(PagesController::class)->group(function () {
     Route::get('/add-book', 'addBook')->name('addBook');
     Route::get('/books/{book}', 'showBook')->name('showBook');
     Route::get('/books/{book}/update', 'updateBook')->name('book.page.edit');
-    Route::get('/articles/store', 'storeArticleForm')->name('article.page.store');
+    Route::get('/articles/store', 'storeArticleForm')->middleware(IsUser::class)->name('article.page.store');
     Route::get('/user/form', 'getUser')->name('user.page.get');
     Route::get('/user/info', 'showUser')->name('user.page.show');
-    Route::get('/articles/{article}', 'showArticle')->name('article');
-    Route::get('/articles/{article}/edit', 'updateArticle')->name('article.page.edit');
+    Route::get('/articles/{article}', 'showArticle')->middleware(IsPublic::class)->name('article');
+    Route::get('/articles/{article}/edit', 'updateArticle')->middleware(IsUser::class)->name('article.page.edit');
 });
 
-Route::controller(ArticlesController::class)->group(function () {
+Route::controller(ArticlesController::class)->middleware([UpdateActivity::class, IsUser::class])->group(function () {
     Route::post('/articles/store', 'store')->name('articles.store');
     Route::post('/articles/{article}/update', 'update')->name('articles.update');
     Route::post('/articles/{article}/delete', 'delete')->name('articles.delete');
@@ -49,7 +53,7 @@ Route::controller(RegisterController::class)->group(function () {
 });
 
 Route::controller(LoginController::class)->group(function () {
-    Route::get('/login', 'index')->name('login.form');
+    Route::get('/login',  'index')->name('login.form')->middleware(IsGuest::class);
     Route::post('/logout', 'logout')->name('logout.action');
     Route::post('/login', 'login')->name('login.action');
 });
@@ -65,4 +69,5 @@ Route::controller(\App\Http\Controllers\Auth\Manager\LoginController::class)->gr
     Route::post('/manager-logout', 'logout')->name('manager-logout.action');
 
 });
+
 
