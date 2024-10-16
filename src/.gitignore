@@ -4,6 +4,10 @@
 /public/hot
 /public/storage
 /storage/*.key
+<<<<<<< HEAD
+.env
+=======
+>>>>>>> 07720aa36565bd8700a4e549d68e56a043f4041c
 .env.backup
 .env.production
 .phpactor.json
