@@ -5,27 +5,13 @@ namespace App\Http\Controllers\Base;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Book;
+use App\Models\Category;
+use App\Models\Comment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
-    private array $articles = [
-        [
-            'id' => '1',
-            'title' => 'articles title',
-            'text' => 'text'
-        ],
-        [
-            'id' => '2',
-            'title' => 'articles title 2',
-            'text' => 'articles text 2'
-        ],
-        [
-            'id' => '3',
-            'text' => 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab expedita fuga ipsa magni minus optio, possimus, quaerat, qui quia quidem quo quod recusandae voluptatem! Est eum quod saepe sit sunt!'
-        ]
-
-    ];
 
     public function home()
     {
@@ -34,7 +20,7 @@ class PagesController extends Controller
 
     public function articles()
     {
-        $articles = Article::where('is_public', true)->orderBy('created_at');
+        $articles = Article::where('is_public', true)->orderBy('created_at')->withTrashed();
         return view('pages.articles', [
             'articles' => $articles->get()
         ]);
@@ -50,11 +36,22 @@ class PagesController extends Controller
 
     public function showBook(Book $book)
     {
+        dd($book->toArray());
         return view('pages.book', [
-            'title' => $book->title,
-            'description' => $book->description,
-            'createdAt' => $book->created_at ?? 'До рождения Христа'
+            'book' => $book
         ]);
+    }
+
+    public function updateBook(Book $book)
+    {
+        return view('pages.editBook', [
+            'book' => $book
+        ]);
+    }
+
+    public  function addBook()
+    {
+        return view('pages.addBook');
     }
 
     public function storeArticleForm()
@@ -80,8 +77,16 @@ class PagesController extends Controller
     public  function showArticle(Article $article)
     {
         return view('pages.article', [
-            'title' => $article->title ?? 'Анонимная статья',
-            'text' => $article->body
+            'article' => $article,
+            'comments' => $article->comments()
         ]);
     }
+
+    public function updateArticle(Article $article)
+    {
+        return view('pages.editArticle', [
+            'article' => $article
+        ]);
+    }
+
 }

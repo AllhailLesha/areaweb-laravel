@@ -14,9 +14,9 @@
             @enderror
         </div>
         <div class="mb-3">
-            <label for="articleText" class="form-label">Article Text</label>
-            <input type="text" class="form-control @error('articleText') is-invalid @enderror" id="articleText" name="articleText" value="{{ @old('articleText') }}">
-            @error('articleText')
+            <label for="body" class="form-label">Article Text</label>
+            <input type="text" class="form-control @error('body') is-invalid @enderror" id="body" name="body" value="{{ @old('body') }}">
+            @error('body')
             <div id="validationServer03Feedback" class="invalid-feedback">
                 {{ $message }}
             </div>

@@ -7,6 +7,7 @@
                 'id' => $book->id,
                 'title' => $book->title ?? 'Анониманя статья',
                 'description' => $book->description,
+                'previewImage' => $book->image_url,
                 'createdAt' => $book->created_at ?? 'До рождения христа'
             ])
         @endforeach

@@ -21,11 +21,33 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('books') }}">Books</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('addBook') }}">add Book</a>
+                </li>
+                @if(auth()->guard('manager')->guest())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('manager-register.form') }}">Register manager</a>
+                </li>
+                @else
+                    <form action="{{ route('manager-logout.action') }}" method="post">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Logout</button>
+                    </form>
+                @endif
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            @if(auth()->guest())
+            <div class="d-flex gap-2">
+                <a class="nav-link" href="{{ route('login.form') }}">Login</a>
+                <a class="nav-link" href="{{ route('register.form') }}">Register</a>
+            </div>
+            @else
+                <div class="d-flex gap-2">
+                    <form action="{{ route('logout.action') }}" method="post">
+                        @csrf
+                        <button class="btn btn-danger" type="submit">Logout</button>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
 </nav>
