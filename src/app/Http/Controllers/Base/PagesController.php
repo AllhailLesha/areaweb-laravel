@@ -5,10 +5,6 @@ namespace App\Http\Controllers\Base;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\Book;
-use App\Models\Category;
-use App\Models\Comment;
-use App\Models\Product;
-use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -49,7 +45,7 @@ class PagesController extends Controller
         ]);
     }
 
-    public  function addBook()
+    public function addBook()
     {
         return view('pages.addBook');
     }
@@ -74,7 +70,7 @@ class PagesController extends Controller
         return view('pages.about');
     }
 
-    public  function showArticle(Article $article)
+    public function showArticle(Article $article)
     {
         return view('pages.article', [
             'article' => $article,
