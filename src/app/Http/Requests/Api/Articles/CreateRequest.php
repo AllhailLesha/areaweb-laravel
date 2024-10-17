@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\Api\Articles;
 
+use App\Http\Requests\Api\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreRequest extends FormRequest
+class CreateRequest extends ApiRequest
 {
 
     /**
@@ -20,5 +21,4 @@ class StoreRequest extends FormRequest
             'preview_image' => ['required', 'image', 'mimes:png,jpeg,jpg', 'max:2048'],
         ];
     }
-
 }

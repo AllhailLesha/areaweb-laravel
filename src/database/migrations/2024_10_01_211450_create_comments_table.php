@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->nullable();
+            $table->string('username')->nullable()->default('Anonim');
             $table->foreignId('article_id')->nullable()->constrained()->cascadeOnDelete();
             $table->string('body')->nullable();
             $table->timestamps();

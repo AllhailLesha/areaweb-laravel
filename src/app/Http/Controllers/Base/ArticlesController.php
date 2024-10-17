@@ -18,7 +18,7 @@ class ArticlesController extends Controller
             'title' => $request->input('title'),
             'body' => $request->input('body'),
             'is_public' => 1,
-            'preview_image' => $this->getFilePath($request)
+            'preview_image' => Article::getFilePath($request)
         ]);
         // $article->title = $request->input('title');
         // $article->body = $request->input('body');
@@ -35,7 +35,7 @@ class ArticlesController extends Controller
         $article->update([
             'title' => $request->input('title'),
             'body' => $request->input('body'),
-            'preview_image' => $this->getFilePath($request, $article->preview_image),
+            'preview_image' => Article::getFilePath($request, $article->preview_image),
 
         ]);
         return redirect()->route('article', [
@@ -48,12 +48,4 @@ class ArticlesController extends Controller
         return redirect()->route('articles');
     }
 
-    private function getFilePath(Request $request, ?string $default = null): ?string
-    {
-        $previewImagePath = $default;
-        if ($request->hasFile('articleImg')) {
-            $previewImagePath = "/storage/{$request->file('articleImg')->store('images/articles')}";
-        }
-        return $previewImagePath;
-    }
 }

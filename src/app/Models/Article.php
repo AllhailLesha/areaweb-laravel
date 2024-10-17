@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 class Article extends Model
 {
@@ -34,6 +35,15 @@ class Article extends Model
 
     public function comments()
     {
-        return $this->hasMany(Comment::class)->get();
+        return $this->hasMany(Comment::class);
+    }
+
+    public static function getFilePath(Request $request, ?string $default = null): ?string
+    {
+        $previewImagePath = $default;
+        if ($request->hasFile('preview_image')) {
+            $previewImagePath = "/storage/{$request->file('preview_image')->store('images/articles')}";
+        }
+        return $previewImagePath;
     }
 }

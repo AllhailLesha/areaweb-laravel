@@ -16,11 +16,19 @@ class IsPublic
      */
     public function handle(Request $request, Closure $next): Response
     {
-
         /**
          * @var Article $article
          */
         $article = $request->route('article');
-        return $article->is_public ? $next($request) : abort(403);
+
+        if (!$article->is_public)
+        {
+            if (str_contains($request->route()->getPrefix(), 'api'))
+            {
+                return \response()->json(['message' => 'No access'], 403);
+            }
+            return abort(403);
+        }
+            return $next($request);
     }
 }

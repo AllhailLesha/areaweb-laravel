@@ -28,9 +28,9 @@
             @else
                 <p class="card-text">Изображение для статьи не установлено</p>
             @endif
-            <label for="articleImg" class="form-label">Image for article</label>
-            <input class="form-control @error('articleImg') is-invalid @enderror" type="file" id="articleImg" name="articleImg">
-            @error('articleImg')
+            <label for="preview_image" class="form-label">Image for article</label>
+            <input class="form-control @error('preview_image') is-invalid @enderror" type="file" id="preview_image" name="preview_image">
+            @error('preview_image')
             <div id="validationServer03Feedback" class="invalid-feedback">
                 {{ $message }}
             </div>

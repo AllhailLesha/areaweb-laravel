@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\Articles\CreateRequest;
 use App\Models\Article;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ArticlesController extends Controller
 {
@@ -32,7 +35,7 @@ class ArticlesController extends Controller
             'body' => $article->body,
             'isPublic' => $article->is_public,
             'previewImage' => $article->preview_image,
-            'comments' => $article->comments()->map(function ($comment) {
+            'comments' => $article->comments()->get()->map(function ($comment) {
                 return
                     [
                         'id' => $comment->id,
@@ -41,5 +44,16 @@ class ArticlesController extends Controller
                     ];
             }),
         ];
+    }
+
+    public function create(CreateRequest $request)
+    {
+        $article = Article::query()->create([
+            'title' => $request->input('title'),
+            'body' => $request->input('body'),
+            'preview_image' => Article::getFilePath($request),
+            'is_public' => 1
+        ]);
+        return response()->json($this->getArticle($article), 201);
     }
 }

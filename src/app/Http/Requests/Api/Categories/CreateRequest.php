@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Article;
+namespace App\Http\Requests\Api\Categories;
 
+use App\Http\Requests\Api\ApiRequest;
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateRequest extends FormRequest
+class CreateRequest extends ApiRequest
 {
 
     /**
@@ -15,9 +16,7 @@ class UpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['string', 'min:2', 'max:10'],
-            'body' => ['string', 'max:500'],
-            'preview_image' => ['image', 'mimes:png,jpeg,jpg', 'max:2048'],
+            'name' => ['required', 'string']
         ];
     }
 }
