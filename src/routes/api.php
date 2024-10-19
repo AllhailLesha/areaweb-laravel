@@ -12,6 +12,7 @@ Route::controller(ArticlesController::class)->prefix('articles')->group(function
     Route::get('/{article}', 'getArticle')->middleware(IsPublic::class);
     Route::post('/', 'create');
     Route::patch('/{article}', 'update');
+    Route::put('/{article}', 'updateOrCreate');
     Route::post('/{article}/update-image', 'updateImage');
 
 });

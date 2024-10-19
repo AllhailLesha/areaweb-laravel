@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Articles\CreateRequest;
+use App\Http\Requests\Api\Articles\UpdateOrCreateRequest;
 use App\Http\Requests\Api\Articles\UpdateRequest;
 use App\Http\Requests\Api\Articles\UploadRequest;
 use App\Models\Article;
@@ -64,6 +65,12 @@ class ArticlesController extends Controller
     {
         $article->update($request->validated());
         return response()->json($this->getArticle($article));
+    }
+
+    public function updateOrCreate(UpdateOrCreateRequest $request, $article)
+    {
+        return Article::query()
+            ->updateOrCreate(['id' => $article], $request->validated());
     }
 
     public function updateImage(UploadRequest $request, Article $article)
