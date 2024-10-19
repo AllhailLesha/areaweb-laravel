@@ -14,22 +14,6 @@ use Illuminate\Support\Facades\Validator;
 
 class ArticlesController extends Controller
 {
-    public function list()
-    {
-        return Article::query()
-            ->select(['id', 'title', 'is_public', 'preview_image'])
-            ->where('is_public', true)
-            ->get()
-            ->map(function ($article) {
-                return
-                    [
-                        'id' => $article->id,
-                        'title' => $article->title,
-                        'isPublic' => $article->is_public,
-                        'previewImage' => $article->preview_image,
-                    ];
-            });
-    }
 
     public function getArticle(Article $article)
     {
@@ -50,22 +34,6 @@ class ArticlesController extends Controller
         ];
     }
 
-    public function create(CreateRequest $request)
-    {
-        $article = Article::query()->create([
-            'title' => $request->input('title'),
-            'body' => $request->input('body'),
-            'preview_image' => Article::getFilePath($request),
-            'is_public' => 1
-        ]);
-        return response()->json($this->getArticle($article), 201);
-    }
-
-    public function update(UpdateRequest $request, Article $article)
-    {
-        $article->update($request->validated());
-        return response()->json($this->getArticle($article));
-    }
 
     public function updateOrCreate(UpdateOrCreateRequest $request, $article)
     {
@@ -83,14 +51,4 @@ class ArticlesController extends Controller
         return response()->json($this->getArticle($article));
     }
 
-    public function delete(Article $article)
-    {
-        if ($article->delete())
-        {
-            $article->update([
-                'is_public' => false,
-            ]);
-        }
-        return response()->json(["status" => $article->delete()], 202);
-    }
 }

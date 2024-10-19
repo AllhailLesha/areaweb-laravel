@@ -1,21 +1,17 @@
 <?php
 
+use App\Http\Controllers\Api\v1\CategoriesController;
+use App\Http\Controllers\Api\v1\CommentsController;
+use App\Http\Controllers\Api\v1\Default\ArticlesController as DefaultArticlesController;
 use App\Http\Controllers\Api\v1\ArticlesController;
 use App\Http\Controllers\Api\v1\ProductsController;
-use App\Http\Controllers\Api\v1\CommentsController;
-use App\Http\Controllers\Api\v1\CategoriesController;
-use App\Http\Middleware\Artisan\IsPublic;
 use Illuminate\Support\Facades\Route;
 
-Route::controller(ArticlesController::class)->prefix('articles')->group(function () {
-    Route::get('/', 'list');
-    Route::get('/{article}', 'getArticle')->middleware(IsPublic::class);
-    Route::post('/', 'create');
-    Route::patch('/{article}', 'update');
-    Route::put('/{article}', 'updateOrCreate');
-    Route::post('/{article}/update-image', 'updateImage');
-    Route::delete('/{article}', 'delete');
-});
+
+Route::apiResources([
+    'article' => DefaultArticlesController::class,
+    'customArticles' => ArticlesController::class,
+]);
 
 Route::controller(ProductsController::class)->group(function () {
     Route::get('products', 'list');
