@@ -62,16 +62,17 @@ class ArticlesController extends Controller
 
     public function update(UpdateRequest $request, Article $article)
     {
-        $article::query()->update($request->validated());
+        $article->update($request->validated());
         return response()->json($this->getArticle($article));
     }
 
     public function updateImage(UploadRequest $request, Article $article)
     {
         $filePath = Upload::upload($request, storePath: "images/articles", imageKey: "preview_image");
-        $article::query()->update([
-            'preview_image' => $request->input('preview_image')
+        $article->update([
+            'preview_image' => $filePath,
         ]);
-        dd($filePath);
+
+        return response()->json($this->getArticle($article));
     }
 }
