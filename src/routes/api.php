@@ -20,6 +20,7 @@ Route::controller(ArticlesController::class)->prefix('articles')->group(function
 Route::controller(ProductsController::class)->group(function () {
     Route::get('products', 'list');
     Route::get('/products/{product}', 'getProduct');
+    Route::patch('/products/{product}', 'update');
     Route::post('/categories/{category}/product', 'create');
 });
 

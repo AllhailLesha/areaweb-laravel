@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Products\CreateRequest;
+use App\Http\Requests\Api\Products\UpdateRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Product;
 use http\Env\Request;
+use http\Env\Response;
 
 class ProductsController extends Controller
 {
@@ -19,7 +21,7 @@ class ProductsController extends Controller
             ->get();
     }
 
-    public function getProduct(Product $product)
+    public function getProduct(Product $product): array
     {
         return
             [
@@ -43,5 +45,11 @@ class ProductsController extends Controller
         ]);
 
         return response()->json($this->getProduct($product), 201);
+    }
+
+    public function update(UpdateRequest $request, Product $product)
+    {
+        $product->update($request->validated());
+        return response()->json(array_merge(["status" => true, "data" => $product]));
     }
 }
