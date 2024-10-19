@@ -8,20 +8,20 @@ use App\Http\Middleware\Artisan\IsPublic;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(ArticlesController::class)->prefix('articles')->group(function () {
-    Route::get('/', 'list');
-    Route::get('/{article}', 'getArticle')->middleware(IsPublic::class);
-    Route::post('/', 'create');
+    Route::get('/', 'index');
+    Route::get('/{article}', 'show')->middleware(IsPublic::class);
+    Route::post('/', 'store');
     Route::patch('/{article}', 'update');
     Route::put('/{article}', 'updateOrCreate');
     Route::post('/{article}/update-image', 'updateImage');
-    Route::delete('/{article}', 'delete');
+    Route::delete('/{article}', 'destroy');
 });
 
 Route::controller(ProductsController::class)->group(function () {
-    Route::get('products', 'list');
-    Route::get('/products/{product}', 'getProduct');
+    Route::get('products', 'index');
+    Route::get('/products/{product}', 'show');
     Route::patch('/products/{product}', 'update');
-    Route::post('/categories/{category}/product', 'create');
+    Route::post('/categories/{category}/product', 'store');
 });
 
 Route::controller(CommentsController::class)->group(function () {

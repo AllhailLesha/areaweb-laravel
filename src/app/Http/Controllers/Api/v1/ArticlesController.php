@@ -7,6 +7,8 @@ use App\Http\Requests\Api\Articles\CreateRequest;
 use App\Http\Requests\Api\Articles\UpdateOrCreateRequest;
 use App\Http\Requests\Api\Articles\UpdateRequest;
 use App\Http\Requests\Api\Articles\UploadRequest;
+use App\Http\Resources\Articles\ArticleResource;
+use App\Http\Resources\Articles\MinifiedArticleResource;
 use App\Models\Article;
 use App\Models\Base\Upload;
 use Illuminate\Http\Request;
@@ -14,43 +16,19 @@ use Illuminate\Support\Facades\Validator;
 
 class ArticlesController extends Controller
 {
-    public function list()
+    public function index()
     {
-        return Article::query()
-            ->select(['id', 'title', 'is_public', 'preview_image'])
-            ->where('is_public', true)
-            ->get()
-            ->map(function ($article) {
-                return
-                    [
-                        'id' => $article->id,
-                        'title' => $article->title,
-                        'isPublic' => $article->is_public,
-                        'previewImage' => $article->preview_image,
-                    ];
-            });
+        return MinifiedArticleResource::collection(
+            Article::query()->where('is_public', true)->get()
+        );
     }
 
-    public function getArticle(Article $article)
+    public function show(Article $article)
     {
-        return [
-            'id' => $article->id,
-            'title' => $article->title,
-            'body' => $article->body,
-            'isPublic' => $article->is_public,
-            'previewImage' => $article->preview_image,
-            'comments' => $article->comments()->get()->map(function ($comment) {
-                return
-                    [
-                        'id' => $comment->id,
-                        'userName' => $comment->username,
-                        'body' => $comment->body,
-                    ];
-            }),
-        ];
+        return new ArticleResource($article);
     }
 
-    public function create(CreateRequest $request)
+    public function store(CreateRequest $request)
     {
         $article = Article::query()->create([
             'title' => $request->input('title'),
@@ -58,13 +36,13 @@ class ArticlesController extends Controller
             'preview_image' => Article::getFilePath($request),
             'is_public' => 1
         ]);
-        return response()->json($this->getArticle($article), 201);
+        return response()->json($this->show($article), 201);
     }
 
     public function update(UpdateRequest $request, Article $article)
     {
         $article->update($request->validated());
-        return response()->json($this->getArticle($article));
+        return response()->json($this->show($article));
     }
 
     public function updateOrCreate(UpdateOrCreateRequest $request, $article)
@@ -80,10 +58,10 @@ class ArticlesController extends Controller
             'preview_image' => $filePath,
         ]);
 
-        return response()->json($this->getArticle($article));
+        return response()->json($this->show($article));
     }
 
-    public function delete(Article $article)
+    public function destroy(Article $article)
     {
         if ($article->delete())
         {

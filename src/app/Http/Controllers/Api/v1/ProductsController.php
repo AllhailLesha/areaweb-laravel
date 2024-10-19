@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Products\CreateRequest;
 use App\Http\Requests\Api\Products\UpdateRequest;
+use App\Http\Resources\Products\MinifiedProductResource;
+use App\Http\Resources\Products\ProductResource;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Product;
@@ -13,28 +15,19 @@ use http\Env\Response;
 
 class ProductsController extends Controller
 {
-    public function list()
+    public function index()
     {
-        return Product::query()
-            ->select(['name', 'description', 'price', 'is_active', 'tags'])
-            ->whereIsActive(true)
-            ->get();
+        return MinifiedProductResource::collection(
+            Product::query()->whereIsActive(true)->get()
+        );
     }
 
-    public function getProduct(Product $product): array
+    public function show(Product $product): ProductResource
     {
-        return
-            [
-                'id' => $product->id,
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'isActive' => $product->is_active,
-                'tags' => $product->tags
-            ];
+        return new ProductResource($product);
     }
 
-    public function create(Category $category, CreateRequest $request)
+    public function store(Category $category, CreateRequest $request)
     {
 
         $product = $category->product()->create([
@@ -44,7 +37,7 @@ class ProductsController extends Controller
             'is_active' => $request->boolean('is_active'),
         ]);
 
-        return response()->json($this->getProduct($product), 201);
+        return response()->json($this->show($product), 201);
     }
 
     public function update(UpdateRequest $request, Product $product)
