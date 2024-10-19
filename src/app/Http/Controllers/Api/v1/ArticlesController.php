@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Api\TokenAuthMiddleware;
 use App\Http\Requests\Api\Articles\CreateRequest;
 use App\Http\Requests\Api\Articles\UpdateOrCreateRequest;
 use App\Http\Requests\Api\Articles\UpdateRequest;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Validator;
 
 class ArticlesController extends Controller
 {
+
     public function index()
     {
         return MinifiedArticleResource::collection(
