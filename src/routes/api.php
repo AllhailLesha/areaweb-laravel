@@ -11,6 +11,9 @@ Route::controller(ArticlesController::class)->prefix('articles')->group(function
     Route::get('/', 'list');
     Route::get('/{article}', 'getArticle')->middleware(IsPublic::class);
     Route::post('/', 'create');
+    Route::patch('/{article}', 'update');
+    Route::post('/{article}/update-image', 'updateImage');
+
 });
 
 Route::controller(ProductsController::class)->group(function () {
@@ -26,6 +29,8 @@ Route::controller(CommentsController::class)->group(function () {
 Route::controller(CategoriesController::class)->group(function () {
     Route::post('/categories', 'create');
 });
+
+
 
 
 
