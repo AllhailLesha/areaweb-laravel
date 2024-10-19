@@ -14,7 +14,7 @@ Route::controller(ArticlesController::class)->prefix('articles')->group(function
     Route::patch('/{article}', 'update');
     Route::put('/{article}', 'updateOrCreate');
     Route::post('/{article}/update-image', 'updateImage');
-
+    Route::delete('/{article}', 'delete');
 });
 
 Route::controller(ProductsController::class)->group(function () {

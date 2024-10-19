@@ -82,4 +82,15 @@ class ArticlesController extends Controller
 
         return response()->json($this->getArticle($article));
     }
+
+    public function delete(Article $article)
+    {
+        if ($article->delete())
+        {
+            $article->update([
+                'is_public' => false,
+            ]);
+        }
+        return response()->json(["status" => $article->delete()], 202);
+    }
 }
