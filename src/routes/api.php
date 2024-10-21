@@ -11,7 +11,7 @@ use App\Http\Middleware\Api\TokenAuthMiddleware;
 
 Route::controller(ArticlesController::class)->prefix('articles')->group(function () {
     Route::get('/', 'index');
-    Route::get('/{article}', 'show')->middleware(IsPublic::class, TokenAuthMiddleware::class);
+    Route::get('/{article}', 'show')->middleware('auth:sanctum');
     Route::post('/', 'store');
     Route::patch('/{article}', 'update');
     Route::put('/{article}', 'updateOrCreate');
@@ -36,6 +36,7 @@ Route::controller(CategoriesController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     Route::post('/login', 'login');
+    Route::post('/logout', 'logout')->middleware('auth:sanctum');
 });
 
 

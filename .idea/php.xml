@@ -120,6 +120,7 @@
       <path value="$PROJECT_DIR$/src/vendor/phpunit/php-code-coverage" />
       <path value="$PROJECT_DIR$/src/vendor/league/config" />
       <path value="$PROJECT_DIR$/src/vendor/league/commonmark" />
+      <path value="$PROJECT_DIR$/src/vendor/laravel/sanctum" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
@@ -128,7 +129,7 @@
   </component>
   <component name="PhpUnit">
     <phpunit_settings>
-      <PhpUnitSettings configuration_file_path="$PROJECT_DIR$/src/phpunit.xml" custom_loader_path="$PROJECT_DIR$/src/vendor/autoload.php" use_configuration_file="true" />
+      <PhpUnitSettings custom_loader_path="$PROJECT_DIR$/src/vendor/autoload.php" />
     </phpunit_settings>
   </component>
   <component name="PsalmOptionsConfiguration">

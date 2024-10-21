@@ -22,21 +22,15 @@ class UserController extends Controller
             ], 401);
         }
 
-        $tokenIsFind = Token::query()->where("user_id", Auth::id())->first();
-        if (is_null($tokenIsFind)){
-            $token = Token::query()->create([
-                "user_id" => Auth::id(),
-                "token" => Str::random(50)
-            ]);
-        } else {
-            $tokenIsFind->update([
-                "token" => Str::random(50),
-            ]);
-            $token = $tokenIsFind;
-        }
+        $token = auth()->user()->createToken('api:token');
 
         return [
-            'token' => $token->token
+            'token' => $token->plainTextToken,
         ];
+    }
+
+    public function logout()
+    {
+        auth()->user()->tokens()->delete();
     }
 }
